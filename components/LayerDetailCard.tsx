@@ -8,7 +8,7 @@ interface LayerDetailCardProps {
   onClose?: () => void;
 }
 
-export const LayerDetailCard: React.FC<LayerDetailCardProps> = ({ selectedLayer, data, config, onClose }) => {
+export const LayerDetailCard: React.FC<LayerDetailCardProps> = ({ data, config, onClose }) => {
   return (
     <div className={`h-full w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-gray-100 transition-colors duration-500 relative`}>
       {/* Header */}

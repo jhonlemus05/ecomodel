@@ -1,5 +1,16 @@
+// Este servicio ya no se utiliza porque la aplicación usa datos estáticos.
+// Se ha comentado para evitar errores de compilación al eliminar la librería @google/genai.
+
+/*
 import { GoogleGenAI, Type } from "@google/genai";
 import { EcologicalData } from "../types";
+
+// Declaración para evitar error TS2580
+declare const process: {
+  env: {
+    API_KEY: string;
+  }
+};
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
@@ -62,3 +73,5 @@ export const generateEcologicalModel = async (topic: string): Promise<Ecological
     throw error;
   }
 };
+*/
+export {};

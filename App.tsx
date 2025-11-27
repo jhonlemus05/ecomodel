@@ -1,34 +1,13 @@
 import React, { useState } from 'react';
 import { EcologicalVisualizer } from './components/EcologicalVisualizer';
 import { LayerDetailCard } from './components/LayerDetailCard';
-import { generateEcologicalModel } from './services/geminiService';
 import { EcologicalData, LayerType } from './types';
 import { LAYER_CONFIGS, INITIAL_DATA } from './constants';
 
 function App() {
-  const [topic, setTopic] = useState('');
   const [activeLayer, setActiveLayer] = useState<LayerType>(LayerType.INDIVIDUAL);
-  const [data, setData] = useState<EcologicalData>(INITIAL_DATA);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [data] = useState<EcologicalData>(INITIAL_DATA);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Function logic kept for potential future use, but UI trigger removed
-  const handleGenerate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!topic.trim()) return;
-
-    setIsLoading(true);
-    setError(null);
-    try {
-      const generatedData = await generateEcologicalModel(topic);
-      setData(generatedData);
-    } catch (err) {
-      setError("Hubo un error al generar el modelo. Por favor verifica tu conexión o intenta con otro tema.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleLayerSelect = (layer: LayerType) => {
     setActiveLayer(layer);
@@ -45,12 +24,6 @@ function App() {
       {/* Main Content */}
       <main className="flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col items-center justify-center">
         
-        {error && (
-          <div className="w-full max-w-2xl mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
-            <span className="block sm:inline">{error}</span>
-          </div>
-        )}
-
         <div className="w-full flex justify-center">
            <div className="w-full max-w-2xl bg-white rounded-2xl shadow-lg border border-slate-100 p-6 flex flex-col items-center">
               <h2 className="text-lg font-semibold text-slate-700 mb-2 self-start w-full border-b pb-2">Modelo Ecológico</h2>
@@ -61,7 +34,7 @@ function App() {
                 activeLayer={activeLayer}
                 onLayerSelect={handleLayerSelect}
                 layers={LAYER_CONFIGS}
-                isLoading={isLoading}
+                isLoading={false}
               />
               
               {/* Legend */}
